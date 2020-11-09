@@ -3,6 +3,7 @@ import csv
 import pandas as pd
 from lxml import etree
 import nltk
+from hazm import *
 
 df = pd.read_csv('ted_talks.csv', usecols=['title', 'description'])
 # print(df)
