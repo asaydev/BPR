@@ -19,7 +19,7 @@ with open('new.csv', 'r') as fh:
 #print(my_dict)
 # print("punctuation : ",punctuation)
 punck=list(punctuation)
-punct = r"""!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"""
+punct = r"!\"#$،%&'()*+,-./:;<=>?@[\]^_`{|}~"
 
 
 title_token_list = []
