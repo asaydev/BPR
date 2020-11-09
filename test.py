@@ -19,6 +19,8 @@ with open('new.csv', 'r') as fh:
 #print(my_dict)
 # print("punctuation : ",punctuation)
 punck=list(punctuation)
+punct = r"""!"#$،%&'()*+,-./:;<=>?@[\]^_`{|}~"""
+
 
 title_token_list = []
 desc_token_list = []
@@ -35,9 +37,6 @@ tagged_title = nltk.pos_tag(title_token_list)
 tagged_desc = nltk.pos_tag(desc_token_list)
 #print(tagged_title)
 #print(tagged_desc)
-
-
-
 
 persian_dict = {}
 tree = etree.parse('Persian.xml')
