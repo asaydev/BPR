@@ -62,11 +62,11 @@ for key, value in persian_dict.items():
 for item in persian_title_token:
     if item in punct:
         persian_title_token.remove(item)
-    tagged_per_title += tagger.tag(item)
+    # tagged_per_title += tagger.tag(item)
 for item in persian_desc_token:
     if item in punct:
         persian_desc_token.remove(item)
-    tagged_per_desc += tagger.tag(item)
+    # tagged_per_desc += tagger.tag(item)
 
 print(tagged_per_desc)
 print(tagged_per_title)
