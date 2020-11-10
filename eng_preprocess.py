@@ -3,7 +3,9 @@ import csv
 import pandas as pd
 from lxml import etree
 import nltk
+import re
 from hazm import *
+from nltk.corpus import stopwords
 
 df = pd.read_csv('ted_talks.csv', usecols=['title', 'description'])
 # print(df)
@@ -16,22 +18,25 @@ with open('new.csv', 'r') as fh:
         new_values = (row['description'])
         my_dict[new_key] = new_values
 
-#print(my_dict)
-# print("punctuation : ",punctuation)
-punck=list(punctuation)
-
-title_token_list = []
-desc_token_list = []
+token_list = []
 for key, value in my_dict.items():
-     title_token_list += nltk.word_tokenize(key)
-     desc_token_list += nltk.word_tokenize(value)
-for item in title_token_list:
+     token_list += nltk.word_tokenize(key)
+     token_list += nltk.word_tokenize(value)
+
+#print(my_dict)
+punck=list(punctuation)
+punck += ["``","''","`","'","--","’"]
+# print(punck)
+
+for item in token_list:
     if item in punck:
-        title_token_list.remove(item)
-for item in desc_token_list:
-    if item in punck:
-        desc_token_list.remove(item)
-tagged_title = nltk.pos_tag(title_token_list)
-tagged_desc = nltk.pos_tag(desc_token_list)
-#print(tagged_title)
-#print(tagged_desc)
+        token_list.remove(item)
+# print(token_list)
+
+stopWords = set(stopwords.words())
+token_list = [word for word in token_list if len(word) > 1]
+token_list = [word for word in token_list if not word.isnumeric()]
+token_list = [word for word in token_list if not re.search('^[0-9]+\\.[0-9]+$', word)]
+token_list = [word.lower() for word in token_list]
+words = [word for word in token_list if word not in stopWords]
+print(words)
