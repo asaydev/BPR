@@ -7,6 +7,7 @@ import re
 from hazm import *
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
+from collections import Counter
 
 
 def prepare_text(txt_file):
@@ -23,13 +24,19 @@ def prepare_text(txt_file):
     token_list = [word for word in token_list if not word.isnumeric()]
     token_list = [word for word in token_list if not re.search('^[0-9]+\\.[0-9]+$', word)]
     token_list = [word.lower() for word in token_list]
+
+    word_count = Counter(token_list)
+    print(word_count.most_common(10))
+
     words = [word for word in token_list if word not in stopWords]
+
+    word_count = Counter(words)
+    print(word_count.most_common(10))
 
     ps = PorterStemmer()
     stem_set = set()
     for w in words:
         stem_set.add(ps.stem(w))
-    print(len(stem_set))
     stem_list = list(stem_set)
     return stem_list
 
