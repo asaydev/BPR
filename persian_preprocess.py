@@ -21,6 +21,7 @@ for child in root:
     desc = word_tokenize(child.findall(".//{http://www.mediawiki.org/xml/export-0.10/}text")[0].text)
     persian_title_token += title
     persian_desc_token += desc
+print(len(persian_desc_token))
 for item in persian_title_token:
     if item in punct:
         persian_title_token.remove(item)
