@@ -10,20 +10,20 @@ from nltk.corpus import stopwords
 df = pd.read_csv('ted_talks.csv', usecols=['title', 'description'])
 # print(df)
 df.to_csv('new.csv', index=False)
-my_dict = {}
-with open('new.csv', 'r') as fh:
-    rd = csv.DictReader(fh, delimiter=',')
-    for row in rd:
-        new_key = row['title']
-        new_values = (row['description'])
-        my_dict[new_key] = new_values
+with open('txt_file.txt', "w") as my_output_file:
+    with open('new.csv', "r") as my_input_file:
+        data_with_header = list(csv.reader(my_input_file))
+        data_wthot_hd = data_with_header[1:]
+        [ my_output_file.write(" ".join(row)+' , ') for row in data_wthot_hd]
+    my_output_file.close()
 
+with open ('txt_file.txt', "r") as myfile:
+    data=myfile.read()
+# print(data)
 token_list = []
-for key, value in my_dict.items():
-     token_list += nltk.word_tokenize(key)
-     token_list += nltk.word_tokenize(value)
+token_list += nltk.word_tokenize(data)
+print(token_list)
 
-#print(my_dict)
 punck=list(punctuation)
 punck += ["``","''","`","'","--","’"]
 # print(punck)
