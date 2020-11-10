@@ -6,6 +6,7 @@ import nltk
 import re
 from hazm import *
 from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
 
 
 def prepare_text(txt_file):
@@ -14,7 +15,6 @@ def prepare_text(txt_file):
     # print(data)
     token_list = []
     token_list += nltk.word_tokenize(data)
-    print(len(token_list))
     # print(token_list)
 
     punck=list(punctuation)
@@ -33,11 +33,17 @@ def prepare_text(txt_file):
     token_list = [word.lower() for word in token_list]
     words = [word for word in token_list if word not in stopWords]
     # print(words)
-    return words
+
+    ps = PorterStemmer()
+    stem_set = set()
+    for w in words:
+        stem_set.add(ps.stem(w))
+    print(len(stem_set))
+    stem_list = list(stem_set)
+    return stem_list
 
 
 df = pd.read_csv('ted_talks.csv', usecols=['title', 'description'])
-# print(df)
 df.to_csv('new.csv', index=False)
 with open('txt_file.txt', "w") as my_output_file:
     with open('new.csv', "r") as my_input_file:
