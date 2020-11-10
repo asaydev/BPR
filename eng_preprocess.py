@@ -12,7 +12,7 @@ from collections import Counter
 
 def prepare_text(txt_file):
     with open ('txt_file.txt', "r") as myfile:
-        data=myfile.read()
+        data=myfile.read().replace('\n', '')
 
     token_list = []
     token_list += nltk.word_tokenize(data)
@@ -47,7 +47,7 @@ with open('txt_file.txt', "w") as my_output_file:
     with open('new.csv', "r") as my_input_file:
         data_with_header = list(csv.reader(my_input_file))
         data_wthot_hd = data_with_header[1:]
-        [ my_output_file.write(" ".join(row)+' , ') for row in data_wthot_hd]
+        [ my_output_file.write(" ".join(row)+'\n') for row in data_wthot_hd]
     my_output_file.close()
 
 list = prepare_text('txt_file.txt')
