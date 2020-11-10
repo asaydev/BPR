@@ -3,7 +3,9 @@ import csv
 import pandas as pd
 from lxml import etree
 import nltk
+import re
 from hazm import *
+from nltk.corpus import stopwords
 
 df = pd.read_csv('ted_talks.csv', usecols=['title', 'description'])
 # print(df)
@@ -29,4 +31,12 @@ punck += ["``","''","`","'","--","’"]
 for item in token_list:
     if item in punck:
         token_list.remove(item)
-print(token_list)
+# print(token_list)
+
+stopWords = set(stopwords.words())
+token_list = [word for word in token_list if len(word) > 1]
+token_list = [word for word in token_list if not word.isnumeric()]
+token_list = [word for word in token_list if not re.search('^[0-9]+\\.[0-9]+$', word)]
+token_list = [word.lower() for word in token_list]
+words = [word for word in token_list if word not in stopWords]
+print(words)
